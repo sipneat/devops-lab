@@ -1,0 +1,45 @@
+#!/bin/bash
+
+steam_path="/mnt/d/Program Files (x86)/Steam/steamapps/downloading"
+declare -A file_sizes
+
+init() {
+  local path="$1"
+  initial_files="$(du -h --max-depth=1 "$path" 2>/dev/null | head -n -1)"
+
+  while IFS=$'\t' read -r size full_path; do
+    name=$(basename "$full_path")
+    file_sizes["$name"]="$size"
+  done <<< "$initial_files"
+}
+
+watch_path() {
+  local path="$1"
+  init "$path"
+  while true; do
+    
+    new_files="$(du -h --max-depth=1 "$path" 2>/dev/null | head -n -1)"
+
+    declare -A current_sizes
+    while IFS=$'\t' read -r size full_path; do
+      name=$(basename "$full_path")
+      current_sizes["$name"]="$size"
+    done <<< "$new_files"
+
+    for key in "${!current_sizes[@]}"; do
+      if [[ -z "${file_sizes[$key]}" ]]; then
+        echo "New game being downloaded: $key"
+      elif [[ "${file_sizes[$key]}" != "${current_sizes[$key]}" ]]; then
+        echo "$key went from ${file_sizes[$key]} to ${current_sizes[$key]}"
+      fi
+    done
+
+    for key in "${!current_sizes[@]}"; do
+      file_sizes["$key"]="${current_sizes[$key]}"
+    done
+  
+    sleep 1
+  done
+}
+
+watch_path "$steam_path"

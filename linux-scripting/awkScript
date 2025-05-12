@@ -1,11 +1,11 @@
 #!/usr/bin/awk -f
 
 BEGIN {
-    # input and output separators
-    FS = ":"
-    OFS = ":"
-    # counter
-    count = 0
+  # input and output separators
+  FS = ":"
+  OFS = ":"
+  # counter
+  count = 0
 }
 {
   $2 = ""
@@ -13,5 +13,5 @@ BEGIN {
   count++
 }
 END {
-    print count " lines processed"
+  print count " lines processed"
 }

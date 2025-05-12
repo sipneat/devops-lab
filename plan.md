@@ -1,11 +1,11 @@
 ## Linux & Shell Scripting
 Topics:
 - File system navigation, permissions, and users
-- `grep`, `awk`, `sed`, `cut`, `xargs`, `find`, etc.
+- `grep`, `awk`, `find`, etc.
 - Bash scripting (loops, conditionals, functions)
 - Systemd basics and process monitoring (`ps`, `top`, `htop`, `journalctl`)
 
-### Goal: Write a script that monitors system disk usage and emails/logs alerts.
+### Goal: Write a script that monitors system disk usage of Steam folder to see if games are being downloaded.
 
 ## Docker & Containers
 Topics:

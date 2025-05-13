@@ -1,0 +1,14 @@
+# Stage 0: base
+FROM python:3.13-slim
+WORKDIR /app
+
+# Stage 1: install dependencies
+COPY backend/requirements.txt .
+RUN pip install -r requirements.txt
+
+# Stage 2: copy source code
+COPY backend/server.py .
+
+# Stage 3: run the application
+EXPOSE 3000
+CMD ["python", "server.py"]

@@ -1,6 +1,7 @@
 # Linux Commands
 
 ## `grep`
+
 - grep is basically ctrl+f in command line
 - `alias grep='grep --color=auto'`
   - highlights the matched pattern in the output
@@ -13,6 +14,7 @@
   - `-C n` print n lines of context
 
 ## `awk`
+
 - `awk '{}' file` filters and manipulates outputs
   - `awk '{print $n,$m}'` print the nth and mth fields of each line
     - `$0` whole line
@@ -23,11 +25,12 @@
   - `-F` input field separator
     - Ex: `awk -F: '{print $1,$2}' /etc/passwd` prints $1 and $2 that are separated by `:`
   - `BEGIN` and `END` blocks
-    - Ex: `awk 'BEGIN {print "------Start------"} {print $0} END {print "------End------\nyeah"}'` 
+    - Ex: `awk 'BEGIN {print "------Start------"} {print $0} END {print "------End------\nyeah"}'`
   - Expressions
     - Ex: `awk '{$1 > 10 print $0}'` prints lines where the first field is greater than 10
 
 ## `find`
+
 - `find path -name "pattern"` find files by name
   - `-type` specify the type of thing
     - `f` file
@@ -39,16 +42,18 @@
   - `-exec` execute a command on the found files
     - Ex: `find . -name "*.txt" -exec rm {} \;` deletes all `.txt` files
 
-# Bash Scripting
+## Bash Scripting
 
-## Basics
+### Basics
+
 - `#!/bin/bash` shebang (first line of the script)
 - `chmod +x script` make the script executable
 - `./script` run the script
 - `export` export a variable to the environment
 - `echo` print to the console
 
-## I/O
+### I/O
+
 - `read` read input from the user
 - `read -p` prompt the user for input
   - Ex: `read -p "Enter your name: " name` prompts the user for their name
@@ -59,22 +64,26 @@
 - `printf` format output
   - Ex: `printf "Hello %s\n" $name` prints "Hello John" if the variable `name` is "John"
 
-## Variables
+### Variables
+
 - `var=value` assign a value to a variable
-  - Ex: `name="John"` assigns "John" to the variable `name` 
+  - Ex: `name="John"` assigns "John" to the variable `name`
   - `name='hi "John"'` nested quotes (also `"hi \"John\""`)
 - `echo $var` print the value of a variable
 
+### Conditionals
 
-## Conditionals
 - `if` statement
-```
+  
+```bash
 if [ condition ]; then
   # code to execute if condition is true
 fi
 ```
+
 - `case` conditional statement
-```
+
+```bash
 case $var in
   pattern1)
     # code to execute if pattern1 matches
@@ -88,40 +97,50 @@ case $var in
 esac
 ```
 
-## Loops
+### Loops
+
 - `for` loop
-```
+
+```bash
 for var in list; do
   # code to execute for each item in the list
 done
 ```
-```
+
+```bash
 for ((i=0; i<5; i++)); do
   # code to execute for each iteration
 done
 ```
+
 - `while` loop
-```
+
+```bash
 while [ condition ]; do
   # code to execute while condition is true
 done
 ```
 
-## Functions
+### Functions
+
 - `function` definition
-```
+
+```bash
 function_name() {
   # code to execute
   arg1=$1
   return value
 }
 ```
+
 - `function_name` call the function
-```
+
+```bash
 function_name arg1 arg2
 ```
 
-# Systemd and Process Monitoring
+## Systemd and Process Monitoring
+
 - `systemctl` command to manage systemd services
   - `systemctl start service` start a service
   - `systemctl stop service` stop a service

@@ -10,7 +10,7 @@ pipeline {
 
     stage('Build and Run Services') {
       steps {
-        sh 'docker compose -f compose.yml up -d --build'
+        sh 'docker compose -f ./jenkins/goal/jenkins/compose.yml up -d --build'
       }
     }
   }

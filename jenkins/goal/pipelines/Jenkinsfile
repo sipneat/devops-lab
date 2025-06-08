@@ -14,7 +14,9 @@ pipeline {
 
         script {
           if (true) {
-            sh 'docker push sipneat/jenkins-goal-client:latest'
+            withDockerRegistry([credentialsId: '7816438f-9476-4675-9581-9bfee96303a9']) {
+              sh 'docker push sipneat/jenkins-goal-client:latest'
+            }
           }
         }
       }
@@ -26,7 +28,9 @@ pipeline {
 
         script {
           if (true) {
-            sh 'docker push sipneat/jenkins-goal-backend:latest'
+            withDockerRegistry([credentialsId: '7816438f-9476-4675-9581-9bfee96303a9']) {
+              sh 'docker push sipneat/jenkins-goal-backend:latest'
+            }
           }
         }
       }

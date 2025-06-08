@@ -2,15 +2,47 @@ pipeline {
   agent any
 
   stages {
-    stage('Checkout Code') {
+    stage('Checkout') {
       steps {
           checkout scm
       }
     }
 
-    stage('Build and Run Services') {
+    stage('Build Frontend') {
+      steps {
+        sh 'docker build -f ./jenkins/goal/pipelines/client.Dockerfile -t sipneat/jenkins-goal-client:latest ./jenkins/goal' 
+
+        script {
+          if (true) {
+            sh 'docker push sipneat/jenkins-goal-client:latest'
+          }
+        }
+      }
+    }
+
+    stage('Build Backend') {
+      steps {
+        sh 'docker build -f ./jenkins/goal/pipelines/backend.Dockerfile -t sipneat/jenkins-goal-backend:latest ./jenkins/goal'
+
+        script {
+          if (true) {
+            sh 'docker push sipneat/jenkins-goal-backend:latest'
+          }
+        }
+      }
+    }
+
+    stage('End to End') {
       steps {
         sh 'docker compose -f ./jenkins/goal/pipelines/compose.yml up -d --build'
+      }
+    }
+
+    stage('Cleanup') {
+      steps {
+        sh 'docker compose -f ./jenkins/goal/pipelines/compose.yml down'
+        sh 'docker system prune -f --volumes'
+        cleanWs()
       }
     }
   }

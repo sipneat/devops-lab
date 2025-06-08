@@ -1,0 +1,31 @@
+# Services
+services:
+
+  # Service: client
+  client:
+    build:
+      context: ../
+      dockerfile: ./pipelines/client.Dockerfile
+      target: client-dev
+    develop:
+      watch:
+        - path: ./client/src/
+          action: sync
+          target: ./app/src/
+        - path: ./client/package.json
+          action: rebuild
+    ports:
+      - "80:5173"
+  
+  # Service: backend
+  backend:
+    build: 
+      context: ../
+      dockerfile: ./pipelines/backend.Dockerfile
+      target: backend-dev
+    develop:
+      watch:
+        - path: ./backend/server.py
+          action: rebuild
+    ports:
+      - "3000:3000"

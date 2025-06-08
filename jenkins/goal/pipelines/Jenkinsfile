@@ -1,0 +1,22 @@
+pipeline {
+  agent any
+
+  stages {
+    stage('Checkout Code') {
+      steps {
+          checkout scm
+      }
+    }
+
+    stage('Build and Run Services') {
+      steps {
+        sh 'docker compose -f compose.yml up -d --build'
+      }
+    }
+  }
+  post {
+    always {
+      echo 'Pipeline completed.'
+    }
+  }
+}
